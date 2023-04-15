@@ -21,8 +21,13 @@ class snow:
 		this.message = message
 
 	def embedMessage(this):
+
 		encodedMessage = encodeMessage(this.message)
-		
+		# Check if the message is longer than the available space
+		if (len(encodedMessage) > this.countSpaces()):
+			print("The message is too long to embed in the text.")
+			return
+			
 		# Read the contents of the file and store them
 		with open(this.fileName, "r") as file:
 			content = file.read()
@@ -46,9 +51,14 @@ class snow:
 
 	def extractMessage(this):
 		return
+
+			def countSpaces(this):
+		with open(this.fileName, "r") as file:
+			contents = file.read()
+			# Count the amount of space characters
+			whitespaces = contents.count(" ")
+		return whitespaces
 	
-	def extractMessage(this):
-		return
 	
 def encodeMessage(message):
 	tempArray = []
