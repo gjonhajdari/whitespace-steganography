@@ -26,5 +26,31 @@ class snow:
 	def extractMessage(this):
 		return
 	
-	def printValues(this):
-		print("Filename: %s\nMessage: %s" % (this.fileName, this.message))
+def encodeMessage(message):
+	tempArray = []
+	encodedMessage = []
+
+	for char in message:
+		# Convert character to ascii, then binary and remove the 'Ob' prefix from the character
+		binary_character = bin(ord(char))[2:]
+		# Add to the array
+		tempArray.append(binary_character)
+	# Convert the binary array to an array of whitepace characters
+	for byte in tempArray:
+		for bit in byte:
+			encodedMessage.append(convertToWhitespace(bit))
+	return encodedMessage
+
+def convertToWhitespace(bit):
+	# Spaces represent a 0 and tabs represent a 1
+	if (bit == '0'):
+		return ' '
+	else:
+		return '\t'
+	
+def convertToBits(whitespace):
+	# Spaces represent a 0 and tabs represent a 1
+	if (whitespace == '\t'):
+		return '1'
+	else:
+		return '0'
