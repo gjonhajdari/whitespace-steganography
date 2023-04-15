@@ -54,3 +54,29 @@ def convertToBits(whitespace):
 		return '1'
 	else:
 		return '0'
+
+
+# Read the contents of the file and store them
+		with open(this.fileName, "r") as file:
+			content = file.read()
+	
+		# Loop through the array and replace each space character with an array element
+		j = 0
+		for i in range(len(content)):
+			if (content[i] == " "):
+				if (j < len(encodedMessage)):
+					# Copy the content before and after the whitespace and add an element in the middle 
+					content = content[:i] + encodedMessage[j] + content[i+1:]
+					j += 1
+				else:
+					break
+				
+		# Write back the new contents to the file
+		with open("output.txt", "w") as file:
+			file.write(content)	
+	
+		print("Text embedded successfully!")
+		# ----------------------------
+
+	def extractMessage(this):
+		return
