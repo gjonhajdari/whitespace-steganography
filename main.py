@@ -6,4 +6,4 @@ longMessage = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 test = snow("input.txt", message)
 
 test.embedMessage()
-# print(test.extractMessage())
+# print("Extracted text: " + test.extractMessage())

@@ -1,3 +1,4 @@
+import re
 import time
 from termcolor import colored
 
@@ -9,6 +10,7 @@ class snow:
 	def embedMessage(this):
 		startTime = time.time()
 		encodedMessage = encodeMessage(this.message)
+		
 		# Check if the message is longer than the available space
 		if (len(encodedMessage) > this.countSpaces()):
 			print(colored("The message is too long to embed in the text.", 'light_red'))
@@ -35,26 +37,31 @@ class snow:
 
 		print(colored("Text hidden successfully!", 'light_green'))
 		print("Time elapsed: %s seconds" % (time.time() - startTime))
-        def decoder(self):
-                array = []
-                bits = ''
-                array2 = []
-                i = 0
-                with open(self.fileName, "r") as file:
-                content = file.read()
-                spaces_list = re.findall(r'\s+', content)
-                if len(spaces_list) % 8 != 0:
-                    raise ValueError("Nuk eshte nje fjal komplete")
-                else:
-                    for char in spaces_list:
-                         bits += convertToBits(char)
-                         if len(bits) == 8:
-                                 array2.append(bits)
-                                 bits = ''
-                    
-                print(generate_word(array2));
+
 	def extractMessage(this):
-		return
+		with open("output.txt", "r") as file:
+			content = file.read()
+
+		whitespaceArray = re.findall(r"[ \t]", content)
+		# Iterate through array and create an array with subarrays consisting of 8 elements
+		groupedArray = [ whitespaceArray[n:n+8] for n in range(0, len(whitespaceArray), 8) ]
+		
+		byte = ''
+		byteArray = []
+		# Convert every whitespace to it's corresponding bit
+		for item in groupedArray:
+			for i in range(len(item)):
+				byte += toBit(item[i])
+				
+			byteArray.append(byte)
+			byte = ''
+
+		# Go through the array and convert every binary string to an ascii character
+		extractedMessage = ''
+		for byte in byteArray:
+			extractedMessage += chr(int(byte, 2))
+
+		return extractedMessage
 
 	def countSpaces(this):
 		with open(this.fileName, "r") as file:
@@ -69,34 +76,29 @@ def encodeMessage(message):
 	encodedMessage = []
 
 	for char in message:
-		# Convert character to ascii, then binary and remove the 'Ob' prefix from the character
-		binary_character = bin(ord(char))[2:]
+		# Convert character to integer ascii value
+		asciiValue = ord(char)
+		# Convert integer to binary number, remove the 'Ob' prefix and fill with padding to make 8 bits
+		binaryCharacter = bin(asciiValue)[2:].zfill(8)
 		# Add to the array
-		binaryArray.append(binary_character)
+		binaryArray.append(binaryCharacter)
 	# Convert the binary array to an array of whitepace characters
 	for byte in binaryArray:
 		for bit in byte:
-			encodedMessage.append(convertToWhitespace(bit))
+			encodedMessage.append(toWhiteSpace(bit))
 
 	return encodedMessage
 
-def convertToWhitespace(bit):
+def toWhiteSpace(bit):
 	# Spaces represent a 0 and tabs represent a 1
-	if (bit == '0'):
-		return ' '
-	else:
+	if (bit == '1'):
 		return '\t'
+	else:
+		return ' '
 	
-def convertToBits(whitespace):
+def toBit(whitespace):
     # Spaces represent a 0 and tabs represent a 1
-    if len(whitespace) == 3:
+    if whitespace == '\t':
         return '1'
     else:
         return '0'
-def generate_word(array):
-    word = '';
-    for value in array:
-        decimal_num = int(value, 2)
-        word += chr(decimal_num)
-        print(decimal_num);
-    return word;
