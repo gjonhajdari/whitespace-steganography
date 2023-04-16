@@ -35,7 +35,24 @@ class snow:
 
 		print(colored("Text hidden successfully!", 'light_green'))
 		print("Time elapsed: %s seconds" % (time.time() - startTime))
-
+        def decoder(self):
+                array = []
+                bits = ''
+                array2 = []
+                i = 0
+                with open(self.fileName, "r") as file:
+                content = file.read()
+                spaces_list = re.findall(r'\s+', content)
+                if len(spaces_list) % 8 != 0:
+                    raise ValueError("Nuk eshte nje fjal komplete")
+                else:
+                    for char in spaces_list:
+                         bits += convertToBits(char)
+                         if len(bits) == 8:
+                                 array2.append(bits)
+                                 bits = ''
+                    
+                print(generate_word(array2));
 	def extractMessage(this):
 		return
 
@@ -71,8 +88,15 @@ def convertToWhitespace(bit):
 		return '\t'
 	
 def convertToBits(whitespace):
-	# Spaces represent a 0 and tabs represent a 1
-	if (whitespace == '\t'):
-		return '1'
-	else:
-		return '0'
+    # Spaces represent a 0 and tabs represent a 1
+    if len(whitespace) == 3:
+        return '1'
+    else:
+        return '0'
+def generate_word(array):
+    word = '';
+    for value in array:
+        decimal_num = int(value, 2)
+        word += chr(decimal_num)
+        print(decimal_num);
+    return word;
