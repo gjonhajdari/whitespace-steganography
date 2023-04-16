@@ -1,19 +1,5 @@
-# 1. Encode message
-#	1.1. Convert characters of string to ascii values
-# 	1.2. Convert ascii values to binary
-#	1.3. Convert bits to whitespace (1 = tab, 0 = space)
-#	1.4. Store characters in a list
-# 2. Embed the message
-#	2.1. Read and store the contents of the file
-#	2.2. Iterate through lines and replace every space with a character from the encoded message list
-#	3.3. Write modified content in an output file
-# 3. Decode the message
-#	3.1. Read and store the contents of a file
-#	3.2. Select and store all the whitespace characters (not including newline character)
-#	3.3. Divide the list into 8 digit long parts
-#	3.4. Convert whitespaces to bits (1 = tab, 0 = space)
-#	3.5. Convert the bytes to ascii values
-#	3.6. Finally convert the ascii back to characters
+import time
+from termcolor import colored
 
 class snow:
 	def __init__(this, fileName, message):
@@ -21,11 +7,11 @@ class snow:
 		this.message = message
 
 	def embedMessage(this):
-
+		startTime = time.time()
 		encodedMessage = encodeMessage(this.message)
 		# Check if the message is longer than the available space
 		if (len(encodedMessage) > this.countSpaces()):
-			print("The message is too long to embed in the text.")
+			print(colored("The message is too long to embed in the text.", 'light_red'))
 			return
 			
 		# Read the contents of the file and store them
@@ -46,13 +32,14 @@ class snow:
 		# Write back the new contents to the file
 		with open("output.txt", "w") as file:
 			file.write(content)	
-	
-		print("Text embedded successfully!")
+
+		print(colored("Text hidden successfully!", 'light_green'))
+		print("Time elapsed: %s seconds" % (time.time() - startTime))
 
 	def extractMessage(this):
 		return
 
-			def countSpaces(this):
+	def countSpaces(this):
 		with open(this.fileName, "r") as file:
 			contents = file.read()
 			# Count the amount of space characters
@@ -61,18 +48,19 @@ class snow:
 	
 	
 def encodeMessage(message):
-	tempArray = []
+	binaryArray = []
 	encodedMessage = []
 
 	for char in message:
 		# Convert character to ascii, then binary and remove the 'Ob' prefix from the character
 		binary_character = bin(ord(char))[2:]
 		# Add to the array
-		tempArray.append(binary_character)
+		binaryArray.append(binary_character)
 	# Convert the binary array to an array of whitepace characters
-	for byte in tempArray:
+	for byte in binaryArray:
 		for bit in byte:
 			encodedMessage.append(convertToWhitespace(bit))
+
 	return encodedMessage
 
 def convertToWhitespace(bit):
