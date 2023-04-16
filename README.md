@@ -27,7 +27,7 @@ print(object.extractMessage())
 	- Store the characters in an array
 2. Embed the message
 	- Read and store the contents of the file
-	- Iterate through lines and replace every space with a character from the encoded message array (if ther are no more characters leave the rest of the spaces)
+	- Iterate through lines and replace every space with a character from the encoded message array (if there are no more characters leave the rest of the spaces as they are)
 	- Write modified content in an output file
 3. Decode the message
 	- Read and store the contents of a file
