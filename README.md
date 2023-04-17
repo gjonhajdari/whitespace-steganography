@@ -38,7 +38,7 @@ print(object.extractMessage())
 	- Finally convert the ascii values back to characters
 
 ## Collaborators
-- Gjon Hajdari
-- Hekuran Kokolli
-- Haki Hoti
-- Gyltene Sfishta
+- [Gjon Hajdari](https://github.com/GjonHajdari)
+- [Hekuran Kokolli](https://github.com/hekurani)
+- [Haki Hoti](https://github.com/HakiHoti)
+- [Gyltene Sfishta](https://github.com/gyltenesfishta)
