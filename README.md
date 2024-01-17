@@ -8,16 +8,16 @@ To get started create an new snow object and use the built methods to embed and 
 
 ```python
 # Import the class
-from snow import snow
+from snow import Snow
 
 # Create the object
-object = snow([fileName], [message])
+object = Snow([file_name], [message])
 
 # Embed the message (creates an output.txt file)
-object.embedMessage()
+object.embed_message()
 
 # Extract the message
-print(object.extractMessage())
+print(object.extract_message())
 ```
 
 > **Note:** the length of the embedded message cannot exceed the number of spaces inside the source material (text file).
