@@ -1,9 +1,9 @@
-from snow import snow
+from snow import Snow
 
 message = "Hello world!"
 longMessage = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
-test = snow("input.txt", message)
+test = Snow("input.txt", message)
 
-test.embedMessage()
-print("Extracted text: " + test.extractMessage())
+test.embed_message()
+print("Extracted text: " + test.extract_message())
